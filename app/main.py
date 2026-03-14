@@ -2,6 +2,7 @@ from urllib.request import Request
 from app.api.middleware.security_middleware import _rate_limit_exceeded_handle
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import app.models
 
 from app.api.api import main_router
 from app.config.db import Base, check_db_connection ,engine
@@ -28,6 +29,7 @@ def startup_event():
 #     "http://localhost:8000",
 #     "http://localhost:8080",
 # ]
+# IN DEVLOPMENT MODE, YOU CAN USE ["*"] TO ALLOW ALL ORIGINS FOR EASE OF TESTING
 # app.add_middleware(
 #     CORSMiddleware,
 #     allow_origins=["*"],
