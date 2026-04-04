@@ -16,6 +16,7 @@ def check_db_connection():
     try:
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
+            connection.execute(text("CREATE DATABASE IF NOT EXISTS fastapi"))
         return True
     except SQLAlchemyError as e:
         print("❌ Database connection failed:", e)

@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     DEBUG:bool
     ALLOWED_TYPES:list[str] = ["image/jpeg", "image/png"]
     MAX_FILE_SIZE:int = 2 * 1024 * 1024  # 2 MB
+    CLOUDINARY_CLOUD_NAME:str
+    CLOUDINARY_API_KEY:str
+    CLOUDINARY_API_SECRET:str
+    COMPLETE_URL:str
     class Config:
         env_file = ".env"
 settings = Settings()

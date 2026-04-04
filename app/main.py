@@ -3,16 +3,16 @@ from app.api.middleware.security_middleware import _rate_limit_exceeded_handle
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import app.models
-
+from fastapi.middleware.gzip import GZipMiddleware
 from app.api.api import main_router
 from app.config.db import Base, check_db_connection ,engine
+
 
 
 app = FastAPI(
     title="My FastAPI Application",
     description="A sample FastAPI application for demonstration purposes.",
     version="1.0.0",
-   
 )
 
 @app.on_event("startup")
@@ -60,7 +60,7 @@ _rate_limit_exceeded_handle(app) # HANDLE RATE LIMIT EXCEEDED ERRORS GLOBALLY
 #     response.headers["X-Frame-Options"] = "DENY"
 #     return response
 
-
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
 
