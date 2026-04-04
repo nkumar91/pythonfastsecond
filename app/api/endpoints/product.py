@@ -10,6 +10,9 @@ from app.schema.product_schema import  ProductCreate, ProductCreate, ProductResp
 from app.schema.response import ApiResponse
 from app.service.product_service import create_product
 from sqlalchemy.orm import Session
+from fastapi.responses import ORJSONResponse
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select 
 
 
 product_router = APIRouter()
@@ -74,11 +77,13 @@ async def upload_file(
         )  
 
 
-@product_router.get("/get_products",response_model=ApiResponse[list[ProductResponse]]) 
+@product_router.get("/get_products",response_class=ORJSONResponse,response_model=ApiResponse[list[ProductResponse]]) 
 async def get_products(db:Session=Depends(get_db)):
     try:
         products = db.query(Product).all()
-        return JSONResponse(
+        # result =  await db.execute(select(Product))
+        # products = result.scalars().all()
+        return ORJSONResponse(
             content=ApiResponse(
                 success=True,
                 message="Products retrieved successfully",

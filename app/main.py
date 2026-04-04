@@ -63,6 +63,7 @@ _rate_limit_exceeded_handle(app) # HANDLE RATE LIMIT EXCEEDED ERRORS GLOBALLY
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 
+#engine.begin() as connection:
 
 Base.metadata.create_all(bind=engine)
 app.include_router(main_router,prefix="/api")

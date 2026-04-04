@@ -2,13 +2,17 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base,sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from app.config.settings import settings
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
 DATABASE_URL = (
     f"{settings.DB_URL}"
 )
-
+#engine = create_async_engine(DATABASE_URL, echo=False)
 engine = create_engine(DATABASE_URL, echo=False)
-SessionLocal = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(
+    bind=engine,
+    # class_=AsyncSession,
+    )
 Base = declarative_base()
 
 #FUNCTION TO CHECK DB CONNECTION
